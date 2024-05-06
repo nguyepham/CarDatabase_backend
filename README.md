@@ -1,0 +1,1 @@
+Fullstack web application built with Spring Boot and React
