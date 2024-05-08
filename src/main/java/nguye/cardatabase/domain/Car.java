@@ -1,9 +1,6 @@
 package nguye.cardatabase.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -21,7 +18,15 @@ public class Car {
     private String brand, model, color, registrationNumber;
     private int modelYear, price;
 
-    public Car(String brand, String model, String color, String registrationNumber, int modelYear, int price) {
+    // The @ManyToOne annotation is used to define a many-to-one relationship between the Car and Owner classes.
+    // The @JoinColumn annotation is used to define the foreign key column and the column name in the database.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
+    private Owner owner;
+
+    public Car() {}
+
+    public Car(String brand, String model, String color, String registrationNumber, int modelYear, int price, Owner owner) {
         super();
         this.brand = brand;
         this.model = model;
@@ -29,7 +34,6 @@ public class Car {
         this.registrationNumber = registrationNumber;
         this.modelYear = modelYear;
         this.price = price;
+        this.owner = owner;
     }
-
-    public Car() {}
 }
