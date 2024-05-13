@@ -1,9 +1,9 @@
 package nguye.cardatabase;
 
-import nguye.cardatabase.domain.Car;
-import nguye.cardatabase.domain.CarRepository;
-import nguye.cardatabase.domain.Owner;
-import nguye.cardatabase.domain.OwnerRepository;
+import nguye.cardatabase.model.Car;
+import nguye.cardatabase.repository.CarRepository;
+import nguye.cardatabase.model.Owner;
+import nguye.cardatabase.repository.OwnerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -35,7 +35,7 @@ public class CardatabaseApplication implements CommandLineRunner {
 	// The run method is called after the application context is loaded and before the Spring Application.run method returns.
 	// The run method is used to perform any actions that should happen when the application starts.
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		// Add owner objects and save them to the database
 		Owner owner1 = new Owner("John", "Smith");
 		Owner owner2 = new Owner("Mary", "Jane");

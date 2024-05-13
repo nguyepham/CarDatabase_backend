@@ -1,5 +1,6 @@
-package nguye.cardatabase.domain;
+package nguye.cardatabase.repository;
 
+import nguye.cardatabase.model.Car;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

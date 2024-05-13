@@ -1,5 +1,7 @@
-package nguye.cardatabase.domain;
+package nguye.cardatabase.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +19,7 @@ public class Owner {
 
     // The cascade attribute defines how cascading affects the entities in the case of deletions or updates. The
     // `ALL` attribute means that all operations are cascaded.
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Car> cars;
 
