@@ -1,6 +1,8 @@
 package nguye.cardatabase;
 
+import nguye.cardatabase.model.AppUser;
 import nguye.cardatabase.model.Car;
+import nguye.cardatabase.repository.AppUserRepository;
 import nguye.cardatabase.repository.CarRepository;
 import nguye.cardatabase.model.Owner;
 import nguye.cardatabase.repository.OwnerRepository;
@@ -19,14 +21,15 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 	private final CarRepository carRepository;
 	private final OwnerRepository ownerRepository;
+	private final AppUserRepository appUserRepository;
 
-	// The CarRepository and OwnerRepository interfaces is injected into the constructor
-	public CardatabaseApplication(CarRepository carRepository, OwnerRepository ownerRepository) {
-		this.carRepository = carRepository;
-		this.ownerRepository = ownerRepository;
-	}
+    public CardatabaseApplication(CarRepository carRepository, OwnerRepository ownerRepository, AppUserRepository appUserRepository) {
+        this.carRepository = carRepository;
+        this.ownerRepository = ownerRepository;
+        this.appUserRepository = appUserRepository;
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		SpringApplication.run(CardatabaseApplication.class, args);
 		logger.info("Application started.");
 	}
@@ -36,7 +39,7 @@ public class CardatabaseApplication implements CommandLineRunner {
 	// The run method is used to perform any actions that should happen when the application starts.
 	@Override
 	public void run(String... args) {
-		// Add owner objects and save them to the database
+		logger.info("Saving a couple of owners...");
 		Owner owner1 = new Owner("John", "Smith");
 		Owner owner2 = new Owner("Mary", "Jane");
 		ownerRepository.saveAll(Arrays.asList(owner1, owner2));
@@ -46,6 +49,16 @@ public class CardatabaseApplication implements CommandLineRunner {
 		carRepository.save(new Car("Nissan", "Leaf", "White", "SSJ-3002", 2014, 29000, owner2));
 		carRepository.save(new Car("Toyota", "Camry", "Black", "KKO-2345", 2020, 49000, owner1));
 		carRepository.save(new Car("Toyota", "Century", "White", "G70-3744", 2023, 170000, owner2));
+
+		logger.info("Saving a couple of app users...");
+		appUserRepository.save(new AppUser(
+			"user",
+			"$2a$12$2y7ZRQj1isl.paMVsEAIeeBfBU/G8XrbP149dZhCQvzR2PdSg69v2",
+			"USER"));
+		appUserRepository.save(new AppUser(
+			"admin",
+			"$2a$12$QSVXPTtgpmpLjRa.1Ibt1eqO4SHe0SHyEdRs24ouJT50znQ2gcTN2",
+			"ADMIN"));
 
 		logger.info("Fetching all cars...");
 		for (Car car : carRepository.findAll()) {
