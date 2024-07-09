@@ -1,4 +1,4 @@
-package nguye.cardatabase.config;
+package nguye.cardatabase.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

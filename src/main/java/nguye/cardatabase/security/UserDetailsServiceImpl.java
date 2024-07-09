@@ -1,4 +1,4 @@
-package nguye.cardatabase.service;
+package nguye.cardatabase.security;
 
 import nguye.cardatabase.model.AppUser;
 import nguye.cardatabase.repository.AppUserRepository;
