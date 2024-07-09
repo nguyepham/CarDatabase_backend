@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Optional<AppUser> user = repository.findByUsername(username);
         User.UserBuilder builder;
-
+ 
         if (user.isPresent()) {
             // Create a UserDetails object from the data in the AppUser object
             // The UserDetails object is used by Spring Security to authenticate the user

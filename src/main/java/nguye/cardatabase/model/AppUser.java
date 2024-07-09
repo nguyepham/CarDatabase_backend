@@ -1,10 +1,13 @@
 package nguye.cardatabase.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class AppUser {
 
     @Id
@@ -34,8 +37,6 @@ public class AppUser {
 
     @Column(nullable = false)
     private String role;
-
-    public AppUser() {}
 
     public AppUser(String username, String password, String role) {
         super();

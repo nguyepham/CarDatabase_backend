@@ -3,12 +3,16 @@ package nguye.cardatabase.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Owner {
     @Id
@@ -22,8 +26,6 @@ public class Owner {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Car> cars;
-
-    public Owner() {}
 
     public Owner(String firstname, String lastname) {
         super();
