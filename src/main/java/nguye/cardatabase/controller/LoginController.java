@@ -1,7 +1,7 @@
 package nguye.cardatabase.controller;
 
 import nguye.cardatabase.domain.AccCredentials;
-import nguye.cardatabase.service.JwtService;
+import nguye.cardatabase.security.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;

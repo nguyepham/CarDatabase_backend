@@ -1,4 +1,4 @@
-package nguye.cardatabase.service;
+package nguye.cardatabase.security;
 
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -11,14 +11,15 @@ import nguye.cardatabase.util.VaultClient;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 public class JwtService {
 
-    static final long EXPIRATION_TIME = 86400000;
+    static final long EXPIRATION_TIME = 10800000;
     static final String PREFIX = "Bearer";
 
-    private final Algorithm algorithm = Algorithm.HMAC256(getSecretKey());
+    private final Algorithm algorithm = Algorithm.HMAC256(Objects.requireNonNull(getSecretKey()));
 
     public JwtService() throws Exception {}
 
@@ -39,7 +40,7 @@ public class JwtService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "";
+        return null;
     }
 
     // Generate a signed JWT token

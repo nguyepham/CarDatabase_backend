@@ -1,6 +1,5 @@
-package nguye.cardatabase.config;
+package nguye.cardatabase.security;
 
-import nguye.cardatabase.filter.AuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -22,9 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final AuthenticationFilter authFilter;
+    private final AuthenticationEntryPoint exceptionHandler;
 
-    public SecurityConfig(AuthenticationFilter authFilter) {
+    public SecurityConfig(AuthenticationFilter authFilter, AuthenticationEntryPoint exceptionHandler) {
         this.authFilter = authFilter;
+        this.exceptionHandler = exceptionHandler;
     }
 
     // This method creates a PasswordEncoder bean that is used to encode the password.
@@ -51,6 +53,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.POST, "/login")
                         .permitAll().anyRequest().authenticated())
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exHandler -> exHandler.authenticationEntryPoint(exceptionHandler))
                 .build();
     }
 }

@@ -1,4 +1,4 @@
-package nguye.cardatabase.service;
+package nguye.cardatabase.security;
 
 import nguye.cardatabase.domain.AppUser;
 import nguye.cardatabase.repository.AppUserRepository;
@@ -19,8 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.repository = repository;
     }
 
-    // This method is used by Spring Security to authenticate a user.
-    // The method is called by the DaoAuthenticationProvider, which is the default authentication provider in Spring
+    // This method is called by the DaoAuthenticationProvider, which is the default authentication provider in Spring
     // Security.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
  
         if (user.isPresent()) {
             // Create a UserDetails object from the data in the AppUser object
-            // The UserDetails object is used by Spring Security to authenticate the user
+            // The UserDetails object is used by an AuthenticationProvider to authenticate the user
             AppUser currentUser = user.get();
             // Create the UserDetails object
             builder = User

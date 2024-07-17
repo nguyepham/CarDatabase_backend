@@ -129,7 +129,7 @@ public class VaultClient {
         }
     }
 
-    public static void makeApiDeleteRequest(String secret, String token) throws Exception {
+    public static void  makeApiDeleteRequest(String secret, String token) throws Exception {
         String url = BASE_URL + "secrets/" + secret;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
