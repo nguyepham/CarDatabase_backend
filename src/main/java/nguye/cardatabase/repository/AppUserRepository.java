@@ -1,6 +1,6 @@
 package nguye.cardatabase.repository;
 
-import nguye.cardatabase.model.AppUser;
+import nguye.cardatabase.domain.AppUser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

@@ -1,4 +1,4 @@
-package nguye.cardatabase.model;
+package nguye.cardatabase.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

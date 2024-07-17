@@ -1,4 +1,4 @@
-package nguye.cardatabase.model;
+package nguye.cardatabase.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,13 +35,9 @@ public class AppUser {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role;
-
-    public AppUser(String username, String password, String role) {
+    public AppUser(String username, String password) {
         super();
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 }

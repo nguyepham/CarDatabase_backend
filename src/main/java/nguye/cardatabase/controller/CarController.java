@@ -1,6 +1,6 @@
 package nguye.cardatabase.controller;
 
-import nguye.cardatabase.model.Car;
+import nguye.cardatabase.domain.Car;
 import nguye.cardatabase.repository.CarRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

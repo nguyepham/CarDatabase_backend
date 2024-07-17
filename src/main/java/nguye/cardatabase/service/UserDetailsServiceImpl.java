@@ -1,6 +1,6 @@
-package nguye.cardatabase.security;
+package nguye.cardatabase.service;
 
-import nguye.cardatabase.model.AppUser;
+import nguye.cardatabase.domain.AppUser;
 import nguye.cardatabase.repository.AppUserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,8 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             // Create the UserDetails object
             builder = User
                 .withUsername(username)
-                .password(currentUser.getPassword())
-                .roles(currentUser.getRole());
+                .password(currentUser.getPassword());
         } else {
             throw new UsernameNotFoundException("User not found");
         }

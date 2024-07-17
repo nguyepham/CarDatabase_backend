@@ -1,10 +1,10 @@
 package nguye.cardatabase;
 
-import nguye.cardatabase.model.AppUser;
-import nguye.cardatabase.model.Car;
+import nguye.cardatabase.domain.AppUser;
+import nguye.cardatabase.domain.Car;
 import nguye.cardatabase.repository.AppUserRepository;
 import nguye.cardatabase.repository.CarRepository;
-import nguye.cardatabase.model.Owner;
+import nguye.cardatabase.domain.Owner;
 import nguye.cardatabase.repository.OwnerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +53,10 @@ public class CardatabaseApplication implements CommandLineRunner {
 		logger.info("Saving a couple of app users...");
 		appUserRepository.save(new AppUser(
 			"user",
-			"$2a$12$2y7ZRQj1isl.paMVsEAIeeBfBU/G8XrbP149dZhCQvzR2PdSg69v2",
-			"USER"));
+			"$2a$12$2y7ZRQj1isl.paMVsEAIeeBfBU/G8XrbP149dZhCQvzR2PdSg69v2"));
 		appUserRepository.save(new AppUser(
 			"admin",
-			"$2a$12$QSVXPTtgpmpLjRa.1Ibt1eqO4SHe0SHyEdRs24ouJT50znQ2gcTN2",
-			"ADMIN"));
+			"$2a$12$QSVXPTtgpmpLjRa.1Ibt1eqO4SHe0SHyEdRs24ouJT50znQ2gcTN2"));
 
 		logger.info("Fetching all cars...");
 		for (Car car : carRepository.findAll()) {
