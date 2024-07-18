@@ -31,10 +31,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             // Create a UserDetails object from the data in the AppUser object
             // The UserDetails object is used by an AuthenticationProvider to authenticate the user
             AppUser currentUser = user.get();
+
             // Create the UserDetails object
+            String authority = username.toUpperCase();
             builder = User
-                .withUsername(username)
-                .password(currentUser.getPassword());
+                    .withUsername(username)
+                    .authorities(authority)
+                    .password(currentUser.getPassword());
         } else {
             throw new UsernameNotFoundException("User not found");
         }

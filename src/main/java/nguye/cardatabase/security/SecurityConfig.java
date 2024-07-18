@@ -50,8 +50,15 @@ public class SecurityConfig {
 
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.POST, "/login")
-                        .permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers("/api/**").hasAuthority("ADMIN") // ADMIN authority for all other requests
+                        .anyRequest().authenticated())
+                // All requests other than login will not carry the user credential in the request body and this filter
+                // will perform some operations before delegates them to the next filter in the chain.
+                // Therefore, it must be added to the filter chain before the filter that carries out the authentication
+                // process.
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exHandler -> exHandler.authenticationEntryPoint(exceptionHandler))
                 .build();
