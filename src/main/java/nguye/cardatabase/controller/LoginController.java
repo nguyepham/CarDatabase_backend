@@ -31,12 +31,14 @@ public class LoginController {
         Authentication auth = authenticationManager.authenticate(authenticationToken);
 
         // Generate a new token
-        String jwt = jwtService.generateToken(auth.getName());
+        String username = auth.getName();
+        String jwt = jwtService.generateToken(username);
 
         // Build the response with the generated token
         return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer" + jwt)
-                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
+                .header("Account", username)
+                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization", "Account")
                 .build();
     }
 }

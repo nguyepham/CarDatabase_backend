@@ -17,7 +17,6 @@ import java.util.Objects;
 public class JwtService {
 
     static final long EXPIRATION_TIME = 10800000;
-    static final String PREFIX = "Bearer";
 
     private final Algorithm algorithm = Algorithm.HMAC256(Objects.requireNonNull(getSecretKey()));
 
@@ -58,7 +57,7 @@ public class JwtService {
     // Get a token from the request, verify the token, and get the username
     public String verifyAndGetUser(String header) {
 
-        String token = header.replace(PREFIX, "");
+        String token = header.substring(7);
 
         try {
             JWTVerifier verifier = JWT.require(algorithm)
