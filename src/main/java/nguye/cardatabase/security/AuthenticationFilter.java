@@ -36,6 +36,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             // Extract the username from the JWT carried in the Authorization header of the incoming request.
             // If the token is valid, store the info about the authenticated user to the security context.
             String user = jwtService.verifyAndGetUser(authHeader);
+            // The authorities are used here as how roles are often used
+            // The naming convention is also non-standard, as the authority is derived from the username without any prefix
             GrantedAuthority authority = new SimpleGrantedAuthority(user.toUpperCase());
 
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, List.of(authority));

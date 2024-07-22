@@ -1,5 +1,6 @@
-package nguye.cardatabase.security;
+package nguye.cardatabase.config;
 
+import nguye.cardatabase.security.AuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

@@ -21,17 +21,13 @@ public class VaultClient {
     private static final String ORGANIZATION_ID = "50bc9d2b-030e-4531-8a34-9122d6fc7705";
     private static final String PROJECT_ID = "dc39aa7e-057c-424d-a7c5-375f7ee66309";
     private static final String APP_NAME = "sample-app";
+
     private static final String BASE_URL = "https://api.cloud.hashicorp.com/secrets/2023-06-13/organizations/" +
             ORGANIZATION_ID + "/projects/" +
             PROJECT_ID + "/apps/" +
             APP_NAME + "/";
 
-    public static void main(String[] args) throws Exception {
-        String token = getToken();
-        makeApiGetRequest("jwt_key", token);
-    }
-
-    public static String getToken() throws Exception {
+    private static String getToken() throws Exception {
         String url = "https://auth.idp.hashicorp.com/oauth2/token";
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -62,12 +58,13 @@ public class VaultClient {
         return null;
     }
 
-    public static String makeApiGetRequest(String secret, String token) throws Exception {
+    public static String makeApiGetRequest(String secret) throws Exception {
         String url =  BASE_URL + "open/" + secret;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet get = new HttpGet(url);
 
+        String token = getToken();
         get.setHeader("Authorization", "Bearer " + token);
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
@@ -76,9 +73,7 @@ public class VaultClient {
 
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                String result = EntityUtils.toString(entity);
-                System.out.println(result);
-                return result;
+                return EntityUtils.toString(entity);
             }
         } catch (Error e) {
             System.out.println(e.getMessage());
@@ -86,31 +81,12 @@ public class VaultClient {
         return "Response empty.";
     }
 
-    public static void makeApiGetRequest(String token) throws Exception {
-        String url =  BASE_URL + "open";
-
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet get = new HttpGet(url);
-
-        get.setHeader("Authorization", "Bearer " + token);
-
-        try (CloseableHttpResponse response = httpClient.execute(get)) {
-            int statusCode = response.getStatusLine().getStatusCode();
-            System.out.println("API Request Response Code :: " + statusCode);
-
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                String result = EntityUtils.toString(entity);
-                System.out.println(result);
-            }
-        }
-    }
-
-    public static void makeApiPostRequest(String json, String token) throws Exception {
+    public static void makeApiPostRequest(String json) throws Exception {
         String url = BASE_URL + "kv";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
 
+        String token = getToken();
         post.setHeader("Authorization", "Bearer " + token);
         post.setHeader("Content-Type", "application/json");
 
@@ -129,12 +105,13 @@ public class VaultClient {
         }
     }
 
-    public static void  makeApiDeleteRequest(String secret, String token) throws Exception {
+    public static void  makeApiDeleteRequest(String secret) throws Exception {
         String url = BASE_URL + "secrets/" + secret;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpDelete delete = new HttpDelete(url);
 
+        String token = getToken();
         delete.setHeader("Authorization", "Bearer " + token);
 
         try (CloseableHttpResponse response = httpClient.execute(delete)) {

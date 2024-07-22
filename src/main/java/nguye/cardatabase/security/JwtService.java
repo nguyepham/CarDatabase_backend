@@ -18,23 +18,20 @@ public class JwtService {
 
     static final long EXPIRATION_TIME = 10800000;
 
-    private final Algorithm algorithm = Algorithm.HMAC256(Objects.requireNonNull(getSecretKey()));
+    private final Algorithm algorithm = Algorithm.HMAC256(Objects.requireNonNull(JwtService.getVaultSecret("jwt_key")));
 
     public JwtService() throws Exception {}
 
     // Get the JWT secret key from HCP Vault Secrets using API
-    private String getSecretKey() throws Exception {
+    public static String getVaultSecret(String name) throws Exception {
 
-        String vaultToken = VaultClient.getToken();
-        String resBodyString = VaultClient.makeApiGetRequest("jwt_key", vaultToken);
+        String resBodyString = VaultClient.makeApiGetRequest(name);
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             JsonNode rootNode = mapper.readTree(resBodyString);
             JsonNode valueNode = rootNode.path("secret").path("version").path("value");
-            String key = valueNode.asText();
-            System.out.println("Value: " + key);
-            return key;
+            return valueNode.asText();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
