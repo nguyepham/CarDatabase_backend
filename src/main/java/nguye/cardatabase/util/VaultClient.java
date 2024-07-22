@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class VaultClient {
 
-    private static final String CLIENT_ID = "yE7DfgHBgIqUwclsKTTJ5GqIIeyG8dAZ";
-    private static final String CLIENT_SECRET = "aygliPfG9XpIn9GwupLmEqZgj1oPDxEQ6xafPHvO-5NP5EHLdX1laUihzrNLm25P";
+    private static final String CLIENT_ID = System.getenv("HCP_CLIENT_ID");
+    private static final String CLIENT_SECRET = System.getenv("HCP_CLIENT_SECRET");
     private static final String ORGANIZATION_ID = "50bc9d2b-030e-4531-8a34-9122d6fc7705";
     private static final String PROJECT_ID = "dc39aa7e-057c-424d-a7c5-375f7ee66309";
     private static final String APP_NAME = "sample-app";

@@ -19,7 +19,7 @@ public class DataSourceConfig {
 
         return DataSourceBuilder
                 .create()
-                .url("jdbc:mariadb://cardb.czmm6swwk6yn.ap-southeast-2.rds.amazonaws.com:3306/cardb")
+                .url("jdbc:mariadb://" + System.getenv("DATABASE_DOMAIN") + ":3306/cardb")
                 .username("admin")
                 .password(password)
                 .driverClassName("org.mariadb.jdbc.Driver")
